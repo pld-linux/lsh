@@ -1,4 +1,7 @@
-# TODO: wait for nettle 1.8, uncomment shared-nettle patch
+#
+# Conditional build:
+%bcond_without	kerberos	# without kerberos support
+#
 Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
@@ -15,9 +18,10 @@ Patch1:		%{name}-shared-nettle.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_kerberos:BuildRequires:	heimdal-devel}
 BuildRequires:	gmp-devel
 BuildRequires:	liboop-devel
-#BuildRequires:	nettle-devel >= 1.8
+BuildRequires:	nettle-devel >= 1.8
 BuildRequires:	pam-devel
 BuildRequires:	slib
 BuildRequires:	texinfo
@@ -47,10 +51,9 @@ nale¿y zainstalowaæ odpowiedniego demona (openssh-server lub SSH.COM
 %prep
 %setup -q
 %patch0 -p1
-#%patch1 -p1
+%patch1 -p1
 
 %build
-rm -f missing
 cd src/spki
 %{__aclocal}
 %{__autoconf}
@@ -60,6 +63,7 @@ cd ../..
 %{__autoconf}
 %{__automake}
 %configure \
+	%{!?with_kerberos:--disable-kerberos} \
 	--with-sshd1=%{_sbindir}/sshd \
 	--with-zlib
 
