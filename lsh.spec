@@ -10,6 +10,7 @@ Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.
 Patch0:		%{name}-remove_ipv6_check.patch
 Patch1:		%{name}-UINT64.patch
 Patch2:		%{name}-info.patch
+Patch3:		%{name}-ac25x.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	gmp-devel
 BuildRequires:	liboop-devel
@@ -47,6 +48,7 @@ Niskopoziomowa biblioteka kryptograficzna nettle.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 rm -f missing
@@ -58,9 +60,6 @@ aclocal
 	--with-zlib
 
 %{__make}
-
-gzip -9nf ANNOUNCE AUTHORS ChangeLog FAQ NEWS README \
-	doc/{HACKING,NOTES,PORTS,TASKLIST,TODO,*.txt}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -88,7 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz doc/*.gz
+%doc ANNOUNCE AUTHORS ChangeLog FAQ NEWS README
+%doc doc/{HACKING,NOTES,PORTS,TASKLIST,TODO,*.txt}
 #%attr(754,root,root) /etc/rc.d/init.d/*
 #%attr(640,root,root) /etc/sysconfig/*
 #%attr(640,root,root) /etc/logrotate.d/*

@@ -1,0 +1,11 @@
+--- lsh-1.3.7/configure.in.orig	Sat May 25 00:40:17 2002
++++ lsh-1.3.7/configure.in	Sat May 25 00:45:03 2002
+@@ -472,7 +472,7 @@
+   AC_DEFINE(HAVE_AI_NUMERICHOST)
+ fi
+ 
+-AC_CHECK_FUNCS(poll,,[LIBOBJS="jpoll.o $LIBOBJS"])
++AC_CHECK_FUNCS(poll,,[AC_LIBOBJ([jpoll])])
+ 
+ # Test if the libc includes a good enough argp.
+ if test x$with_system_argp = xyes ; then
