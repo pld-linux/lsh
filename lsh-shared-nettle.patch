@@ -1,0 +1,56 @@
+--- lsh-1.5.1/src/Makefile.am.orig	Wed Feb 19 08:59:27 2003
++++ lsh-1.5.1/src/Makefile.am	Fri Apr  4 22:26:19 2003
+@@ -1,6 +1,6 @@
+ # Process this file with automake to produce Makefile.in
+ 
+-SUBDIRS = argp rsync nettle scm sftp spki . testsuite
++SUBDIRS = argp rsync scm sftp spki . testsuite
+ 
+ include .dist_classes
+ include .dist_headers
+@@ -184,7 +184,7 @@
+ # 	  $(PERL) $(top_srcdir)/misc/mk-reverse-table ssh.h >$@T
+ # 	  if test -s $@T ; then mv -f $@T $@ ; else touch $@ ; fi
+ 
+-LDADD = liblsh.a spki/libspki.a nettle/libnettle.a @LIBARGP@
++LDADD = liblsh.a spki/libspki.a -lnettle @LIBARGP@
+ 
+ # lshg needs ssh_format, which need bignum functions from nettle.
+ # lshg_LDADD = liblsh.a @LIBARGP@
+--- lsh-1.5.1/src/spki/tools/Makefile.am.orig	Mon Feb 17 08:59:43 2003
++++ lsh-1.5.1/src/spki/tools/Makefile.am	Fri Apr  4 22:29:48 2003
+@@ -2,13 +2,13 @@
+ 
+ # FIXME: Create a link to nettle directory instead?
+ AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/..
+-AM_LDFLAGS = -L.. -L../../nettle/
++AM_LDFLAGS = -L..
+ 
+ # libnettle.a and libspki.a are added at the end to make sure all
+ # programs depend on it. It seems there's no DEPENDENCIES variable
+ # that affects all programs.
+ 
+ LDADD = misc.o getopt.o getopt1.o \
+-	-lspki -lnettle ../libspki.a ../../nettle/libnettle.a
++	-lspki -lnettle ../libspki.a -lnettle
+ 
+ EXTRA_DIST = misc.c misc.h getopt.h getopt.c getopt1.c
+--- lsh-1.5.1/src/testsuite/Makefile.am.orig	Tue Feb 25 22:40:42 2003
++++ lsh-1.5.1/src/testsuite/Makefile.am	Fri Apr  4 22:42:16 2003
+@@ -23,7 +23,7 @@
+ # Workaround to get automake to keep dependencies for testutils.o
+ EXTRA_PROGRAMS = testutils
+ 
+-LDADD = testutils.o ../liblsh.a ../spki/libspki.a ../nettle/libnettle.a \
++LDADD = testutils.o ../liblsh.a ../spki/libspki.a -lnettle \
+ 	$(DOTDOT_LIBARGP)
+ 
+ include .dist_rapid7
+@@ -48,6 +48,6 @@
+ 
+ # sexp-conv may be dynamically linked
+ check: $(TS_ALL)
+-	LD_LIBRARY_PATH="`pwd`/../nettle/.lib" srcdir=$(srcdir) \
++	srcdir=$(srcdir) \
+ 		$(srcdir)/run-tests $(TS_ALL)
+ 
