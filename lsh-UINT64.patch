@@ -1,6 +1,6 @@
 --- lsh-1.3.4/src/lsh_types.h.orig	Tue May 14 15:06:39 2002
 +++ lsh-1.3.4/src/lsh_types.h	Tue May 14 15:07:41 2002
-@@ -49,6 +49,18 @@
+@@ -49,6 +49,20 @@
  # endif
  #endif
  
@@ -13,7 +13,9 @@
 +#elif SIZEOF_LONG_LONG >= 8
 +# define UINT64 unsigned long long
 +#else
-+# error No suitable type found to use for UINT64
++# if SIZEOF_OFF_T > 4
++#   error No suitable type found to use for UINT64
++# endif /* SIZEOF_OFF_T > 4 */
 +#endif /* UINT64 */
 + 
  #if SIZEOF_SHORT >= 4
