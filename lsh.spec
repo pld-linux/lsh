@@ -46,7 +46,7 @@ LDFLAGS="-s" ; export LDFLAGS
 	--with-sshd1=/usr/sbin/sshd1 \
 	--with-zlib
 
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
