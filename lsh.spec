@@ -9,7 +9,7 @@ Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
 Source0:	%{name}-snapshot-%{date}.tar.gz
 BuildRequires:	autoconf
-#Prereq:		/sbin/install-info
+Prereq:		/usr/sbin/fix-info-dir
 #Prereq:		/sbin/chkconfig
 #Obsoletes:	mrt
 BuildRoot:	/tmp/%{name}-%{version}-root
@@ -62,7 +62,7 @@ make install \
 #	$RPM_BUILD_ROOT%{_infodir}/* 
 
 %post
-/sbin/install-info %{_infodir}/%{name}.info.gz /etc/info-dir >&2
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 /sbin/chkconfig --add zebra >&2
 
 if [ -f /var/run/zebra.pid ]; then
@@ -72,9 +72,9 @@ else
 fi
     
 %preun
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
 if [ "$1" = "0" ]; then
-        /sbin/install-info --delete %{_infodir}/%{name}.info.gz \
-		/etc/info-dir >&2
 	/etc/rc.d/init.d/zebra stop >&2
         /sbin/chkconfig --del zebra >&2
 fi
