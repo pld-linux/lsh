@@ -1,48 +1,55 @@
-%define 	date	1999-05-11
-
-Summary:	SSH replacement
+Summary:	GNU implementation of the Secure Shell protocols
+Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
-Version:	19990511
-Release:	2
+Version:	1.3.4
+Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
-Source0:	%{name}-snapshot-%{date}.tar.gz
-BuildRequires:	autoconf
-#Prereq:		/sbin/chkconfig
-#Obsoletes:	mrt
+Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
+Patch0:		%{name}-noc99.patch
+URL:		http://www.lysator.liu.se/~nisse/lsh/
+BuildRequires:	slib
+BuildRequires:	zlib-devel
+BuildRequires:	gmp-devel
+#Prereq:	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_sysconfdir /etc/%{name}
-%define		find_requires_packages no
+%define		_sysconfdir	 /etc/%{name}
 
 %description
-Routing daemon with IPv6 support.
+LSH is the GNU implementation of the secure shell protocols (secsh2).
+LSH includes a client, a server, and a few scripts and utility
+programs.
 
 %description -l pl
-Program do dynamicznego ustawiania tablicy tras. Mo¿e tak¿e ustalaæ
-trasy dla IPv6
+LSH jest implementacj± GNU protoko³ów bezpiecznego shella (secsh2).
+Zawiera klienta, serwer, kilka skryptów i narzêdzi.
 
-%package guile
-Summary:	Guile interface for zebra routing daemon
-Summary:	Guile dla programu zebra
-Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
-Requires:	%{name} = %{version}
+%package devel
+Summary:	Nettle low-level cryptographic library
+Summary(pl):	Niskopoziomowa biblioteka kryptograficzna nettle
+Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 
-%description
-Guile interface for zebra routing daemon.
+%description devel
+Nettle low-level cryptographic library.
 
-%description guile -l pl
-Guile dla programu zebra.
+%description devel -l pl
+Niskopoziomowa biblioteka kryptograficzna nettle.
 
 %prep
-%setup -q -n %{name}-snapshot-%{date}
+%setup -q
+%patch -p1
 
 %build
-autoconf
 %configure \
 	--with-sshd1=%{_sbindir}/sshd1 \
 	--with-zlib
@@ -51,47 +58,41 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#gzip -9nf README AUTHORS NEWS ChangeLog tools/*
-
-%post
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-/sbin/chkconfig --add zebra >&2
-
-if [ -f /var/run/zebra.pid ]; then
-	/etc/rc.d/init.d/zebra restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/zebra start\" to start routing deamon." >&2
-fi
-    
-%preun
-if [ "$1" = "0" ]; then
-	/etc/rc.d/init.d/zebra stop >&2
-        /sbin/chkconfig --del zebra >&2
-fi
-
-%postun
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+gzip -9nf ANNOUNCE AUTHORS FAQ NEWS README doc/{NOTES,TASKLIST,TODO,*.txt}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
+%postun
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
+%post devel
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
+%postun devel
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
 %files
 %defattr(644,root,root,755)
-%doc *.gz tools/*
-%{_infodir}/*
-%attr(755,root,root) %{_sbindir}/*
-%attr(754,root,root) /etc/rc.d/init.d/*
-%attr(640,root,root) /etc/sysconfig/*
-%attr(640,root,root) /etc/logrotate.d/*
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
-%attr(640,root,root) %doc %{_sysconfdir}/*.sample
-
-%files guile
-%defattr(644,root,root,755)
+%doc *.gz doc/*.gz
+%{_infodir}/lsh.info*
+%{_mandir}/man[158]/*
+#%attr(754,root,root) /etc/rc.d/init.d/*
+#%attr(640,root,root) /etc/sysconfig/*
+#%attr(640,root,root) /etc/logrotate.d/*
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_sbindir}/*
+
+%files devel
+%defattr(644,root,root,755)
+%{_libdir}/libnettle.a
+%{_includedir}/nettle
+%{_infodir}/nettle.info*
