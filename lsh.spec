@@ -96,8 +96,3 @@ rm -rf $RPM_BUILD_ROOT
 %files guile
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-
-%changelog
-* Sun May 16 1999 Artur Frysiak <wiget@pld.org.pl>
-  [19990516-1]
-- initial version
