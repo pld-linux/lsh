@@ -2,10 +2,11 @@ Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	1.3.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
+Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 Patch0:		%{name}-noc99.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	slib
@@ -53,6 +54,8 @@ install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 gzip -9nf ANNOUNCE AUTHORS FAQ NEWS README doc/{NOTES,TASKLIST,TODO,*.txt}
 
