@@ -8,7 +8,7 @@ Copyright:	GPL
 Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
 Source0:	%{name}-snapshot-%{date}.tar.gz
-BuildPrereq:	autoconf
+BuildRequires:	autoconf
 #Prereq:		/sbin/install-info
 #Prereq:		/sbin/chkconfig
 #Obsoletes:	mrt
