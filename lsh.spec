@@ -9,6 +9,8 @@ Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 Patch0:		%{name}-noc99.patch
 Patch1:		%{name}-remove_ipv6_check.patch
+Patch2:		%{name}-automake.patch
+Patch3:		%{name}-UINT64.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	slib
 BuildRequires:	zlib-devel
@@ -42,8 +44,14 @@ Niskopoziomowa biblioteka kryptograficzna nettle.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
+aclocal
+autoconf
+rm -f missing
+automake -a -c -f --foreign
 %configure \
 	--with-sshd1=%{_sbindir}/sshd1 \
 	--with-zlib \
