@@ -5,8 +5,6 @@ Version:	1.3.4
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
 Patch0:		%{name}-noc99.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
@@ -31,13 +29,6 @@ Zawiera klienta, serwer, kilka skryptСw i narzЙdzi.
 Summary:	Nettle low-level cryptographic library
 Summary(pl):	Niskopoziomowa biblioteka kryptograficzna nettle
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 
 %description devel
 Nettle low-level cryptographic library.
