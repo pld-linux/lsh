@@ -2,12 +2,13 @@ Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	1.3.4
-Release:	2
+Release:	3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 Patch0:		%{name}-noc99.patch
+Patch1:		%{name}-remove_ipv6_check.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	slib
 BuildRequires:	zlib-devel
@@ -39,12 +40,14 @@ Niskopoziomowa biblioteka kryptograficzna nettle.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
 %configure \
 	--with-sshd1=%{_sbindir}/sshd1 \
-	--with-zlib
+	--with-zlib \
+	--disable-ipv6
 
 %{__make}
 
