@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/{HACKING,NOTES,PORTS,TASKLIST,TODO,*.txt}
 #%attr(754,root,root) /etc/rc.d/init.d/*
 #%attr(640,root,root) /etc/sysconfig/*
-#%attr(640,root,root) /etc/logrotate.d/*
+#%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/*
 %dir %attr(6750,root,root) /var/spool/lsh
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
