@@ -3,7 +3,7 @@
 Summary:	SSH replacement
 Name:		lsh
 Version:	19990511
-Release:	1
+Release:	2
 Copyright:	GPL
 Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
@@ -72,12 +72,13 @@ else
 fi
     
 %preun
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-
 if [ "$1" = "0" ]; then
 	/etc/rc.d/init.d/zebra stop >&2
         /sbin/chkconfig --del zebra >&2
 fi
+
+%postun
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
