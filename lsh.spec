@@ -6,7 +6,9 @@ Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
+# Source0-md5:	a8bb8806d990b0907bb251d8be014a63
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
+# Source1-md5:	164cdde8060577b54954c3f9f067927e
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-shared-nettle.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
