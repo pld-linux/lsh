@@ -9,12 +9,14 @@ Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 Patch0:		%{name}-remove_ipv6_check.patch
 Patch1:		%{name}-UINT64.patch
+Patch2:		%{name}-info.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
-BuildRequires:	slib
-BuildRequires:	zlib-devel
 BuildRequires:	gmp-devel
-BuildRequires:	pam-devel
 BuildRequires:	liboop-devel
+BuildRequires:	pam-devel
+BuildRequires:	slib
+BuildRequires:	texinfo
+BuildRequires:	zlib-devel
 Requires:	openssh-server
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -44,11 +46,12 @@ Niskopoziomowa biblioteka kryptograficzna nettle.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
+rm -f missing
 aclocal
 autoconf
-rm -f missing
 automake -a -c -f --foreign
 %configure \
 	--with-sshd1=%{_sbindir}/sshd \
@@ -86,14 +89,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.gz doc/*.gz
-%{_infodir}/lsh.info*
-%{_mandir}/man[158]/*
 #%attr(754,root,root) /etc/rc.d/init.d/*
 #%attr(640,root,root) /etc/sysconfig/*
 #%attr(640,root,root) /etc/logrotate.d/*
 %dir %attr(6750,root,root) /var/spool/lsh
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
+%{_infodir}/lsh.info*
+%{_mandir}/man[158]/*
 
 %files devel
 %defattr(644,root,root,755)
