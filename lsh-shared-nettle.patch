@@ -38,12 +38,12 @@
 --- lsh-1.5.1/src/testsuite/Makefile.am.orig	Tue Feb 25 22:40:42 2003
 +++ lsh-1.5.1/src/testsuite/Makefile.am	Fri Apr  4 22:42:16 2003
 @@ -23,7 +23,7 @@
- 
- noinst_PROGRAMS = $(TS_PROGS)
+ # Workaround to get automake to keep dependencies for testutils.o
+ EXTRA_PROGRAMS = testutils
  
 -LDADD = testutils.o ../liblsh.a ../spki/libspki.a ../nettle/libnettle.a \
 +LDADD = testutils.o ../liblsh.a ../spki/libspki.a -lnettle \
- 	$(addprefix ../,@LIBARGP@)
+ 	$(DOTDOT_LIBARGP)
  
  include .dist_rapid7
 @@ -48,6 +48,6 @@

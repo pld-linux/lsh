@@ -1,12 +1,13 @@
+# TODO: wait for nettle 1.8, uncomment shared-nettle patch
 Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
-Version:	1.5.1
-Release:	1
+Version:	1.5.2
+Release:	0.1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
-# Source0-md5:	a8bb8806d990b0907bb251d8be014a63
+# Source0-md5:	6318d963aaa3a34a5e752ac657575b46
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 # Source1-md5:	164cdde8060577b54954c3f9f067927e
 Patch0:		%{name}-info.patch
@@ -16,7 +17,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gmp-devel
 BuildRequires:	liboop-devel
-BuildRequires:	nettle-devel >= 1.7
+#BuildRequires:	nettle-devel >= 1.8
 BuildRequires:	pam-devel
 BuildRequires:	slib
 BuildRequires:	texinfo
@@ -46,7 +47,7 @@ nale¿y zainstalowaæ odpowiedniego demona (openssh-server lub SSH.COM
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 
 %build
 rm -f missing
