@@ -12,6 +12,8 @@ Patch1:		%{name}-UINT64.patch
 Patch2:		%{name}-info.patch
 Patch3:		%{name}-ac25x.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gmp-devel
 BuildRequires:	liboop-devel
 BuildRequires:	pam-devel
