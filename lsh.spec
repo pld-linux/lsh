@@ -60,23 +60,14 @@ install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d}
 #gzip -9nf README AUTHORS NEWS ChangeLog tools/*
 
 %post
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-/sbin/chkconfig --add zebra >&2
-
-if [ -f /var/run/zebra.pid ]; then
-	/etc/rc.d/init.d/zebra restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/zebra start\" to start routing deamon." >&2
-fi
+%fix_info_dir
+NAME=zebra; DESC="routing daemon"; %chkconfig_add
     
 %preun
-if [ "$1" = "0" ]; then
-	/etc/rc.d/init.d/zebra stop >&2
-        /sbin/chkconfig --del zebra >&2
-fi
+NAME=zebra; %chkconfig_del
 
 %postun
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+%fix_info_dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
