@@ -1,0 +1,28 @@
+--- lsh-1.3.7/doc/lsh.texinfo~	Tue May 14 23:52:18 2002
++++ lsh-1.3.7/doc/lsh.texinfo	Tue May 14 23:52:18 2002
+@@ -5,9 +5,9 @@
+ @settitle lsh
+ @c %**end of header
+ 
+-@dircategory GNU Packages
++@dircategory Net utilities:
+ @direntry
+-* LSH: (lsh).           Secure Shell and related utilities.
++* LSH: (lsh).				Secure Shell and related utilities
+ @end direntry
+ 
+ @set UPDATED-FOR 1.3.4
+--- lsh-1.3.7/src/nettle/nettle.texinfo~	Tue May 14 23:54:56 2002
++++ lsh-1.3.7/src/nettle/nettle.texinfo	Tue May 14 23:54:56 2002
+@@ -8,9 +8,9 @@
+ @footnotestyle end
+ @syncodeindex fn cp
+ 
+-@dircategory GNU Libraries
++@dircategory Libraries:
+ @direntry
+-* Nettle: (nettle).           A low-level cryptographics library.
++* Nettle: (nettle).			A low-level cryptographics library
+ @end direntry
+ 
+ @set UPDATED-FOR 1.5
