@@ -9,7 +9,6 @@ Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
 Source0:	%{name}-snapshot-%{date}.tar.gz
 BuildRequires:	autoconf
-Prereq:		/usr/sbin/fix-info-dir
 #Prereq:		/sbin/chkconfig
 #Obsoletes:	mrt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -61,7 +60,7 @@ make install \
 #	$RPM_BUILD_ROOT%{_infodir}/* 
 
 %post
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 /sbin/chkconfig --add zebra >&2
 
 if [ -f /var/run/zebra.pid ]; then
@@ -77,7 +76,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %postun
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
