@@ -4,8 +4,9 @@ Summary:	SSH replacement
 Name:		lsh
 Version:	19990511
 Release:	2
-Copyright:	GPL
+License:	GPL
 Group:		Networking/Daemons
+Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
 Source0:	%{name}-snapshot-%{date}.tar.gz
 BuildRequires:	autoconf
@@ -20,14 +21,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Routing daemon with IPv6 support.
 
 %description -l pl
-Program do dynamicznego ustawiania tablicy tras.
-Mo¿e tak¿e ustalaæ trasy dla IPv6
+Program do dynamicznego ustawiania tablicy tras. Mo¿e tak¿e ustalaæ
+trasy dla IPv6
 
 %package guile
 Summary:	Guile interface for zebra routing daemon
 Summary:	Guile dla programu zebra
-Group:          Networking/Daemons
-Group(pl):      Sieciowe/Serwery
+Group:		Networking/Daemons
+Group(de):	Netzwerkwesen/Server
+Group(pl):	Sieciowe/Serwery
 Requires:	%{name} = %{version}
 
 %description
@@ -41,9 +43,8 @@ Guile dla programu zebra.
 
 %build
 autoconf
-LDFLAGS="-s" ; export LDFLAGS
 %configure \
-	--with-sshd1=/usr/sbin/sshd1 \
+	--with-sshd1=%{_sbindir}/sshd1 \
 	--with-zlib
 
 %{__make}
@@ -56,8 +57,7 @@ install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#gzip -9nf README AUTHORS NEWS ChangeLog tools/* \
-#	$RPM_BUILD_ROOT%{_infodir}/* 
+#gzip -9nf README AUTHORS NEWS ChangeLog tools/*
 
 %post
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
@@ -82,15 +82,15 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(640,root,root,755)
-%attr(644,root,root) %doc *.gz tools/*
-%attr(644,root,root) %{_infodir}/*
+%defattr(644,root,root,755)
+%doc *.gz tools/*
+%{_infodir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
-/etc/sysconfig/*
-/etc/logrotate.d/*
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
-%doc %{_sysconfdir}/*.sample
+%attr(640,root,root) /etc/sysconfig/*
+%attr(640,root,root) /etc/logrotate.d/*
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
+%attr(640,root,root) %doc %{_sysconfdir}/*.sample
 
 %files guile
 %defattr(644,root,root,755)
