@@ -17,13 +17,14 @@
  
  # lshg needs ssh_format, which need bignum functions from nettle.
  # lshg_LDADD = liblsh.a @LIBARGP@
---- lsh-1.5.1/src/spki/tools/Makefile.am.orig	Mon Feb 17 08:59:43 2003
-+++ lsh-1.5.1/src/spki/tools/Makefile.am	Fri Apr  4 22:29:48 2003
+--- lsh-1.5.4/src/spki/tools/Makefile.am.orig	Mon Feb 17 08:59:43 2003
++++ lsh-1.5.4/src/spki/tools/Makefile.am	Fri Apr  4 22:29:48 2003
 @@ -2,13 +2,13 @@
  
  # FIXME: Create a link to nettle directory instead?
- AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/..
+-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/.. -I../../nettle
 -AM_LDFLAGS = -L.. -L../../nettle/
++AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/..
 +AM_LDFLAGS = -L..
  
  # libnettle.a and libspki.a are added at the end to make sure all
