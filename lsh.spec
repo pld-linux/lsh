@@ -1,26 +1,24 @@
 Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
-Version:	1.3.7
+Version:	1.5.1
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
-Patch0:		%{name}-remove_ipv6_check.patch
-Patch1:		%{name}-UINT64.patch
-Patch2:		%{name}-info.patch
-Patch3:		%{name}-ac25x.patch
+Patch0:		%{name}-info.patch
+Patch1:		%{name}-shared-nettle.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gmp-devel
 BuildRequires:	liboop-devel
+BuildRequires:	nettle-devel >= 1.7
 BuildRequires:	pam-devel
 BuildRequires:	slib
 BuildRequires:	texinfo
 BuildRequires:	zlib-devel
-Requires:	openssh-server
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	 /etc/%{name}
@@ -30,30 +28,31 @@ LSH is the GNU implementation of the secure shell protocols (secsh2).
 LSH includes a client, a server, and a few scripts and utility
 programs.
 
+Note: it doesn't support SSH1 protocol, but the server can fallback to
+/usr/sbin/sshd - if you need SSH1 support in server, please install
+appropriate daemon (openssh-server, SSH.COM 1.2.x) as /usr/sbin/sshd.
+
 %description -l pl
 LSH jest implementacj± GNU protoko³ów bezpiecznego shella (secsh2).
 Zawiera klienta, serwer, kilka skryptów i narzêdzi.
 
-%package devel
-Summary:	Nettle low-level cryptographic library
-Summary(pl):	Niskopoziomowa biblioteka kryptograficzna nettle
-Group:		Development/Libraries
-
-%description devel
-Nettle low-level cryptographic library.
-
-%description devel -l pl
-Niskopoziomowa biblioteka kryptograficzna nettle.
+Uwaga: ta implementacja nie obs³uguje protoko³u SSH1, ale serwer mo¿e
+wywo³aæ /usr/sbin/sshd. Je¶li obs³uga SSH1 jest potrzebna w serwerze,
+nale¿y zainstalowaæ odpowiedniego demona (openssh-server lub SSH.COM
+1.2.x) jako /usr/sbin/sshd.
 
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 rm -f missing
+cd src/spki
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+cd ../..
 %{__aclocal}
 %{__autoconf}
 %{__automake}
@@ -70,6 +69,7 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/init.d,sysconfig,logrotate.d},/var/spool/l
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{_mandir}
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 %clean
@@ -79,12 +79,6 @@ rm -rf $RPM_BUILD_ROOT
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %postun
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-
-%post devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-
-%postun devel
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %files
@@ -99,9 +93,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/*
 %{_infodir}/lsh.info*
 %{_mandir}/man[158]/*
-
-%files devel
-%defattr(644,root,root,755)
-%{_libdir}/libnettle.a
-%{_includedir}/nettle
-%{_infodir}/nettle.info*
