@@ -2,12 +2,12 @@
 Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
-Version:	1.5.2
+Version:	1.5.3
 Release:	0.1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
-# Source0-md5:	6318d963aaa3a34a5e752ac657575b46
+# Source0-md5:	7fa504d4ee7b39c27cc35c372056d17b
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 # Source1-md5:	164cdde8060577b54954c3f9f067927e
 Patch0:		%{name}-info.patch
