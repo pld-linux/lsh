@@ -88,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %doc *.gz tools/*
 %attr(644,root,root) %{_infodir}/*
 %attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) /etc/rc.d/init.d/*
+%attr(754,root,root) /etc/rc.d/init.d/*
 /etc/sysconfig/*
 /etc/logrotate.d/*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
