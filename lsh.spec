@@ -51,8 +51,8 @@ Niskopoziomowa biblioteka kryptograficzna nettle.
 %build
 rm -f missing
 aclocal
-autoconf
-automake -a -c -f --foreign
+%{__autoconf}
+%{__automake}
 %configure \
 	--with-sshd1=%{_sbindir}/sshd \
 	--with-zlib
