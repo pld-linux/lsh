@@ -8,16 +8,6 @@ Copyright:	GPL
 Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
 Source0:	%{name}-snapshot-%{date}.tar.gz
-#Source1:	zebra.conf
-#Source2:	zebra-bgpd.conf
-#Source3:	zebra-ospf6d.conf
-#Source4:	zebra-ospfd.conf
-#Source5:	zebra-ripd.conf
-#Source6:	zebra-ripngd.conf
-#Source7:	zebra.init
-#Source8:	zebra.sysconfig
-#Source9:	zebra.log
-#URL:		http://www.zebra.org/
 BuildPrereq:	autoconf
 #Prereq:		/sbin/install-info
 #Prereq:		/sbin/chkconfig
@@ -26,6 +16,7 @@ BuildRoot:	/tmp/%{name}-%{version}-root
 
 %define		_sysconfdir /etc/%{name}
 %define		find_requires_packages no
+
 %description
 Routing daemon with IPv6 support.
 
@@ -109,4 +100,4 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun May 16 1999 Artur Frysiak <wiget@pld.org.pl>
   [19990516-1]
-- initial version  
+- initial version
