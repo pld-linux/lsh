@@ -12,7 +12,7 @@ BuildRequires:	autoconf
 Prereq:		/usr/sbin/fix-info-dir
 #Prereq:		/sbin/chkconfig
 #Obsoletes:	mrt
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir /etc/%{name}
 %define		find_requires_packages no
@@ -56,7 +56,6 @@ install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d}
 
 make install \
 	DESTDIR=$RPM_BUILD_ROOT
-
 
 #gzip -9nf README AUTHORS NEWS ChangeLog tools/* \
 #	$RPM_BUILD_ROOT%{_infodir}/* 
