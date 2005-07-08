@@ -6,7 +6,7 @@ Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	2.0.1
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
@@ -18,7 +18,7 @@ Patch1:		%{name}-shared-nettle.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_kerberos:BuildRequires:	heimdal-devel}
+%{?with_kerberos:BuildRequires:	heimdal-devel >= 0.7}
 BuildRequires:	gmp-devel
 BuildRequires:	liboop-devel
 BuildRequires:	nettle-devel >= 1.12
