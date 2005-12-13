@@ -18,8 +18,8 @@ Patch1:		%{name}-shared-nettle.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_kerberos:BuildRequires:	heimdal-devel >= 0.7}
 BuildRequires:	gmp-devel
+%{?with_kerberos:BuildRequires:	heimdal-devel >= 0.7}
 BuildRequires:	liboop-devel
 BuildRequires:	nettle-devel >= 1.12
 BuildRequires:	pam-devel
