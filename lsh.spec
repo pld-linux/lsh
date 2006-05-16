@@ -5,12 +5,12 @@
 Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl):	Implementacja GNU bezpiecznego shella
 Name:		lsh
-Version:	2.0.1
+Version:	2.0.3
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
-# Source0-md5:	25ca0b4385779de3d58d2d5757f495c3
+# Source0-md5:	2edcb2f48f2b541e757ccdff70387fcb
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 # Source1-md5:	164cdde8060577b54954c3f9f067927e
 Patch0:		%{name}-info.patch
@@ -21,12 +21,12 @@ BuildRequires:	automake
 BuildRequires:	gmp-devel
 %{?with_kerberos:BuildRequires:	heimdal-devel >= 0.7}
 BuildRequires:	liboop-devel
-BuildRequires:	nettle-devel >= 1.12
+BuildRequires:	nettle-devel >= 1.14
 BuildRequires:	pam-devel
 BuildRequires:	slib
 BuildRequires:	texinfo
 BuildRequires:	zlib-devel
-Requires:	nettle >= 1.12
+Requires:	nettle >= 1.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	 /etc/%{name}
