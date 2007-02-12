@@ -3,7 +3,7 @@
 %bcond_without	kerberos	# without kerberos support
 #
 Summary:	GNU implementation of the Secure Shell protocols
-Summary(pl):	Implementacja GNU bezpiecznego shella
+Summary(pl.UTF-8):   Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	2.0.3
 Release:	1
@@ -40,13 +40,13 @@ Note: it doesn't support SSH1 protocol, but the server can fallback to
 /usr/sbin/sshd - if you need SSH1 support in server, please install
 appropriate daemon (openssh-server, SSH.COM 1.2.x) as /usr/sbin/sshd.
 
-%description -l pl
-LSH jest implementacj± GNU protoko≥Ûw bezpiecznego shella (secsh2).
-Zawiera klienta, serwer, kilka skryptÛw i narzÍdzi.
+%description -l pl.UTF-8
+LSH jest implementacjƒÖ GNU protoko≈Ç√≥w bezpiecznego shella (secsh2).
+Zawiera klienta, serwer, kilka skrypt√≥w i narzƒôdzi.
 
-Uwaga: ta implementacja nie obs≥uguje protoko≥u SSH1, ale serwer moøe
-wywo≥aÊ /usr/sbin/sshd. Je∂li obs≥uga SSH1 jest potrzebna w serwerze,
-naleøy zainstalowaÊ odpowiedniego demona (openssh-server lub SSH.COM
+Uwaga: ta implementacja nie obs≈Çuguje protoko≈Çu SSH1, ale serwer mo≈ºe
+wywo≈Çaƒá /usr/sbin/sshd. Je≈õli obs≈Çuga SSH1 jest potrzebna w serwerze,
+nale≈ºy zainstalowaƒá odpowiedniego demona (openssh-server lub SSH.COM
 1.2.x) jako /usr/sbin/sshd.
 
 %prep
