@@ -3,7 +3,7 @@
 %bcond_without	kerberos	# without kerberos support
 #
 Summary:	GNU implementation of the Secure Shell protocols
-Summary(pl.UTF-8):   Implementacja GNU bezpiecznego shella
+Summary(pl.UTF-8):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	2.0.3
 Release:	1
