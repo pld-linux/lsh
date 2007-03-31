@@ -1,12 +1,12 @@
 #
 # Conditional build:
-%bcond_without	kerberos	# without kerberos support
+%bcond_without	kerberos5	# without kerberos V support
 #
 Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl.UTF-8):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	2.0.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking/Daemons
 Source0:	ftp://ftp.lysator.liu.se/pub/security/lsh/%{name}-%{version}.tar.gz
@@ -19,7 +19,7 @@ URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gmp-devel
-%{?with_kerberos:BuildRequires:	heimdal-devel >= 0.7}
+%{?with_kerberos5:BuildRequires:	krb5-devel}
 BuildRequires:	liboop-devel
 BuildRequires:	nettle-devel >= 1.14
 BuildRequires:	pam-devel
@@ -64,7 +64,7 @@ cd ../..
 %{__autoconf}
 %{__automake}
 %configure \
-	%{!?with_kerberos:--disable-kerberos} \
+	%{!?with_kerberos5:--disable-kerberos} \
 	--with-sshd1=%{_sbindir}/sshd \
 	--with-zlib
 
