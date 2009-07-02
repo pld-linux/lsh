@@ -19,7 +19,7 @@ URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gmp-devel
-%{?with_kerberos5:BuildRequires:	krb5-devel}
+%{?with_kerberos5:BuildRequires:	heimdal-devel}
 BuildRequires:	liboop-devel
 BuildRequires:	nettle-devel >= 1.14
 BuildRequires:	pam-devel
