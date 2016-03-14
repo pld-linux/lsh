@@ -6,7 +6,7 @@ Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl.UTF-8):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	2.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Networking/Daemons
 Source0:	http://www.lysator.liu.se/~nisse/archive/%{name}-%{version}.tar.gz
