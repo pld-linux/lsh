@@ -6,7 +6,7 @@ Summary:	GNU implementation of the Secure Shell protocols
 Summary(pl.UTF-8):	Implementacja GNU bezpiecznego shella
 Name:		lsh
 Version:	2.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Networking/Daemons
 Source0:	http://www.lysator.liu.se/~nisse/archive/%{name}-%{version}.tar.gz
@@ -14,6 +14,8 @@ Source0:	http://www.lysator.liu.se/~nisse/archive/%{name}-%{version}.tar.gz
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-man-pages.tar.bz2
 # Source1-md5:	164cdde8060577b54954c3f9f067927e
 Patch0:		%{name}-info.patch
+Patch1:		skip-argp.patch
+Patch2:		nettle3.patch
 URL:		http://www.lysator.liu.se/~nisse/lsh/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -57,6 +59,8 @@ należy zainstalować odpowiedniego demona (openssh-server lub SSH.COM
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 cd src/spki

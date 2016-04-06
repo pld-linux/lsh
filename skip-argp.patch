@@ -1,0 +1,65 @@
+Description: Make sure we don't touch the embedded argp copy when not needed
+ To avoid inline functions causing build failures under C99 standards
+Author: Magnus Holmgren <holmgren@debian.org>
+Bug-Debian: https://bugs.debian.org/777990
+Forwarded: yes
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -577,15 +577,18 @@ fi
+ 
+ # We don't use LIBOBJS for this, as the LIBOBJS are added to
+ # liblsh.a, and we can't add an archive to an archive.
++ARGP=""
+ LIBARGP=""
+ DOTDOT_LIBARGP=""
+ if test x$with_system_argp = xno ; then
++  ARGP="argp"
+   # FIXME: Perhaps it's better to use an absolute path?
+   LIBARGP="argp/libargp.a"
+   # Needed for linking in src/testsuite.
+   DOTDOT_LIBARGP="../argp/libargp.a"
+ fi
+ 
++AC_SUBST(ARGP)
+ AC_SUBST(LIBARGP)
+ AC_SUBST(DOTDOT_LIBARGP)
+ 
+@@ -776,7 +779,9 @@ if test x$enable_ipv6 = xyes ; then
+   AC_DEFINE(WITH_IPV6)
+ fi
+ 
++if test x$with_system_argp = xno ; then
+ AC_CONFIG_SUBDIRS(src/argp)
++fi
+ AC_CONFIG_SUBDIRS(src/spki)
+ AC_CONFIG_SUBDIRS(src/sftp)
+ 
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,6 +1,6 @@
+ # Process this file with automake to produce Makefile.in
+ 
+-SUBDIRS = argp rsync scm sftp spki . testsuite
++SUBDIRS = @ARGP@ rsync scm sftp spki . testsuite
+ 
+ include .dist_classes
+ include .dist_headers
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -190,6 +190,7 @@ AC_DEFUN([LSH_LIB_ARGP],
+   ac_argp_save_LDFLAGS="$LDFLAGS"
+   ac_argp_ok=no
+   # First check if we can link with argp.
++  AH_TEMPLATE([HAVE_ARGP_PARSE], [Define if system has argp_parse()])
+   AC_SEARCH_LIBS(argp_parse, argp,
+   [ LSH_RPATH_FIX
+     AC_CACHE_CHECK([for working argp],
+@@ -294,6 +295,7 @@ int main(int argc, char **argv)
+ 
+   if test x$lsh_cv_lib_argp_works = xyes ; then
+     ac_argp_ok=yes
++    AC_DEFINE(HAVE_ARGP_PARSE)
+   else
+     # Reset link flags
+     LIBS="$ac_argp_save_LIBS"
