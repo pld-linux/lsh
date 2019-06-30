@@ -1,0 +1,8 @@
+--- lsh-2.1/src/scm/guile-compat.scm~	2013-03-09 16:20:21.000000000 +0800
++++ lsh-2.1/src/scm/guile-compat.scm	2019-06-30 22:53:31.886255706 +0800
+@@ -20,5 +20,4 @@
+ ;; along with this program; if not, write to the Free Software
+ ;; Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
+-(use-syntax (ice-9 syncase))
+ (use-modules (ice-9 rdelim))
