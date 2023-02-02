@@ -1,8 +1,9 @@
---- lsh-1.3.7/doc/lsh.texinfo~	Tue May 14 23:52:18 2002
-+++ lsh-1.3.7/doc/lsh.texinfo	Tue May 14 23:52:18 2002
-@@ -5,9 +5,9 @@
- @settitle lsh
- @c %**end of header
+diff -urNp -x '*.orig' lsh-2.1.org/doc/lsh.texinfo lsh-2.1/doc/lsh.texinfo
+--- lsh-2.1.org/doc/lsh.texinfo	2013-03-09 08:49:46.000000000 +0100
++++ lsh-2.1/doc/lsh.texinfo	2023-02-02 08:54:55.593167326 +0100
+@@ -7,9 +7,9 @@
+ 
+ @documentencoding ISO-8859-1
  
 -@dircategory GNU Packages
 +@dircategory Net utilities:
@@ -11,4 +12,4 @@
 +* LSH: (lsh).				Secure Shell and related utilities
  @end direntry
  
- @set UPDATED-FOR 1.3.4
+ @set UPDATED-FOR 2.0
