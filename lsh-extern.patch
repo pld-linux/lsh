@@ -1,0 +1,21 @@
+--- lsh-2.1/src/server_session.h.orig	2013-03-09 08:49:46.000000000 +0100
++++ lsh-2.1/src/server_session.h	2023-02-06 20:22:24.562983097 +0100
+@@ -59,6 +59,6 @@ pty_request_handler;
+ extern struct channel_request
+ window_change_request_handler;
+ 
+-struct channel_request x11_req_handler;
++extern struct channel_request x11_req_handler;
+ 
+ #endif /* LSH_SERVER_SESSION_H_INCLUDED */
+--- lsh-2.1/src/server_userauth.h.orig	2013-03-09 08:49:46.000000000 +0100
++++ lsh-2.1/src/server_userauth.h	2023-02-06 20:21:19.852604302 +0100
+@@ -105,7 +105,7 @@ struct userauth *
+ make_userauth_publickey(struct user_db *db,
+ 			struct alist *verifiers);
+ 
+-struct userauth server_userauth_none_preauth;
++extern struct userauth server_userauth_none_preauth;
+ 
+ struct userauth *
+ make_userauth_none_permit(struct lsh_user *user);
